@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+export const Login = () => {
   const [user, setUser] = useState({
     email: '',
     password: ''
@@ -59,7 +59,7 @@ const Login = () => {
         </form>
 
         <Link to='new-account' className='enlace-cuenta'>
-          Create Account
+          New Account
         </Link>
       </div>
     </div>
