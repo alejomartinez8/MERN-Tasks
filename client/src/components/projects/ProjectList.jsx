@@ -19,7 +19,9 @@ const ProjectList = () => {
             <ProjectItem key={project.id} project={project} />
           ))}
         </ul>
-      ) : null}
+      ) : (
+        <p>There are not projects, create a new Project</p>
+      )}
     </>
   );
 };
