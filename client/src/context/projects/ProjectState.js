@@ -1,8 +1,14 @@
 /* eslint-disable */
 import { useReducer } from "react";
+import { v4 as uuidv4 } from "uuid";
 import ProjectContext from "./projectContext";
 import projectReducer from "./projectReducer";
-import { FORM_PROJECT, GET_PROJECTS } from "../../types";
+import {
+  FORM_PROJECT,
+  GET_PROJECTS,
+  ADD_PROJECT,
+  VALIDATE_FORM,
+} from "../../types";
 
 const projects = [
   { id: 1, name: "React Udemy Course" },
@@ -12,8 +18,9 @@ const projects = [
 
 const ProjectState = ({ children }) => {
   const initialState = {
-    form: false,
+    formAddProject: false,
     projects: [],
+    errorForm: false,
   };
 
   const [state, dispatch] = useReducer(projectReducer, initialState);
@@ -27,11 +34,23 @@ const ProjectState = ({ children }) => {
     dispatch({ type: GET_PROJECTS, payload: projects });
   };
 
+  const addProject = (project) => {
+    project.id = uuidv4();
+    dispatch({ type: ADD_PROJECT, payload: project });
+  };
+
+  const showError = () => {
+    dispatch({ type: VALIDATE_FORM });
+  };
+
   const valueContext = {
-    form: state.form,
+    formAddProject: state.formAddProject,
     projects: state.projects,
+    errorForm: state.errorForm,
     showForm,
     getProjects,
+    addProject,
+    showError,
   };
 
   return (
