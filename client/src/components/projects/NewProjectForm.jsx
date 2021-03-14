@@ -3,7 +3,13 @@ import projectContext from "../../context/projects/projectContext";
 
 const NewProjectForm = () => {
   const context = useContext(projectContext);
-  const { form, showForm } = context;
+  const {
+    formAddProject,
+    errorForm,
+    showForm,
+    addProject,
+    showError,
+  } = context;
 
   const [project, setProject] = useState({
     name: "",
@@ -20,6 +26,12 @@ const NewProjectForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    if (name !== "") {
+      addProject(project);
+      setProject({ name: "" });
+    } else {
+      showError();
+    }
   };
 
   const handleOnClick = () => {
@@ -35,7 +47,7 @@ const NewProjectForm = () => {
       >
         New Project
       </button>
-      {form ? (
+      {formAddProject ? (
         <form onSubmit={handleOnSubmit} className="formulario-nuevo-proyecto">
           <input
             type="text"
@@ -51,6 +63,9 @@ const NewProjectForm = () => {
             value="Add Project"
           />
         </form>
+      ) : null}
+      {errorForm ? (
+        <p className="mensaje error">Type a name for project</p>
       ) : null}
     </>
   );
