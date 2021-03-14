@@ -8,6 +8,8 @@ import {
   GET_PROJECTS,
   ADD_PROJECT,
   VALIDATE_FORM,
+  SELECT_PROJECT,
+  DELETE_PROJECT,
 } from "../../types";
 
 const projects = [
@@ -21,6 +23,7 @@ const ProjectState = ({ children }) => {
     formAddProject: false,
     projects: [],
     errorForm: false,
+    project: null,
   };
 
   const [state, dispatch] = useReducer(projectReducer, initialState);
@@ -43,14 +46,25 @@ const ProjectState = ({ children }) => {
     dispatch({ type: VALIDATE_FORM });
   };
 
+  const selectProject = (projectId) => {
+    dispatch({ type: SELECT_PROJECT, payload: projectId });
+  };
+
+  const deleteProject = (projectId) => {
+    dispatch({ type: DELETE_PROJECT, payload: projectId });
+  };
+
   const valueContext = {
     formAddProject: state.formAddProject,
     projects: state.projects,
     errorForm: state.errorForm,
+    project: state.project,
     showForm,
     getProjects,
     addProject,
     showError,
+    selectProject,
+    deleteProject,
   };
 
   return (

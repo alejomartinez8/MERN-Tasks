@@ -3,6 +3,8 @@ import {
   FORM_PROJECT,
   GET_PROJECTS,
   VALIDATE_FORM,
+  SELECT_PROJECT,
+  DELETE_PROJECT,
 } from "../../types";
 
 export default function projectReducer(state, action) {
@@ -31,6 +33,23 @@ export default function projectReducer(state, action) {
       return {
         ...state,
         errorForm: true,
+      };
+
+    case SELECT_PROJECT:
+      return {
+        ...state,
+        project: state.projects.filter(
+          (project) => project.id === action.payload
+        )[0],
+      };
+
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        projects: state.projects.filter(
+          (project) => project.id !== action.payload
+        ),
+        project: null,
       };
     default:
       return state;
