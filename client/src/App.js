@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Login, NewAccount, Projects } from "./components";
 import ProjectState from "./context/projects/ProjectState";

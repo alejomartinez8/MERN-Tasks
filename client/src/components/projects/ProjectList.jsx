@@ -1,11 +1,15 @@
-import { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ProjectContext from "../../context/projects/projectContext";
 import ProjectItem from "./ProjectItem";
 
 const ProjectList = () => {
   // Extract project from Context
   const context = useContext(ProjectContext);
-  const { projects } = context;
+  const { projects, getProjects } = context;
+
+  useEffect(() => {
+    getProjects();
+  }, []);
 
   return (
     <>

@@ -3,17 +3,17 @@ import TaskItem from "./TaskItem";
 
 const TaskList = () => {
   const tasks = [
-    { name: "MERN Takss", state: true },
-    { name: "NextJS", state: false },
-    { name: "Testing", state: false },
-    { name: "Cypress", state: true },
+    { id: 1, name: "MERN Takss", state: true },
+    { id: 2, name: "NextJS", state: false },
+    { id: 3, name: "Testing", state: false },
+    { id: 4, name: "Cypress", state: true },
   ];
   return (
     <>
       <h2>Project: React Udemy Course</h2>
       <ul className="listado-tareas">
         {tasks.length ? (
-          tasks.map((task) => <TaskItem task={task} />)
+          tasks.map((task) => <TaskItem key={task.id} task={task} />)
         ) : (
           <li>There are not tasks</li>
         )}
