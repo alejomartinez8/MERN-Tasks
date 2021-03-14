@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import ProjectContext from "../../context/projects/projectContext";
 import ProjectItem from "./ProjectItem";
 
 const ProjectList = () => {
-  const projects = [
-    { name: "React Udemy Course" },
-    { name: "Devops course" },
-    { name: "Advanced github" },
-  ];
+  // Extract project from Context
+  const context = useContext(ProjectContext);
+  const { projects, getProjects } = context;
+
+  useEffect(() => {
+    getProjects();
+  }, []);
 
   return (
-    <ul className="listado-proyectos">
-      {projects.map((project) => (
-        <ProjectItem project={project} />
-      ))}
-    </ul>
+    <>
+      {projects.length ? (
+        <ul className="listado-proyectos">
+          {projects.map((project) => (
+            <ProjectItem key={project.id} project={project} />
+          ))}
+        </ul>
+      ) : null}
+    </>
   );
 };
 
