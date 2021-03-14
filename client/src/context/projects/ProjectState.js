@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useReducer } from "react";
+import React, { useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ProjectContext from "./projectContext";
 import projectReducer from "./projectReducer";
