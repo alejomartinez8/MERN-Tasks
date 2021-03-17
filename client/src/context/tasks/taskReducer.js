@@ -1,4 +1,12 @@
-import { ADD_TASK, PROJECT_TASKS, ERROR_TASK } from "../../types";
+import {
+  ADD_TASK,
+  PROJECT_TASKS,
+  ERROR_TASK,
+  DELETE_TASK,
+  TOGGLE_TASK_STATE,
+  SELECT_TASK,
+  EDIT_TASK,
+} from "../../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -13,7 +21,7 @@ export default (state, action) => {
     case ADD_TASK:
       return {
         ...state,
-        tasks: [...state.tasks, action.payload],
+        tasks: [action.payload, ...state.tasks],
         errorTask: false,
       };
 
@@ -21,6 +29,29 @@ export default (state, action) => {
       return {
         ...state,
         errorTask: true,
+      };
+
+    case DELETE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.filter((task) => task.id !== action.payload.id),
+      };
+
+    case EDIT_TASK:
+    case TOGGLE_TASK_STATE:
+      return {
+        ...state,
+        tasks: state.tasks.map((task) =>
+          task.id === action.payload.id ? action.payload : task
+        ),
+        errorTask: false,
+        taskSelected: null,
+      };
+
+    case SELECT_TASK:
+      return {
+        ...state,
+        taskSelected: action.payload,
       };
 
     default:

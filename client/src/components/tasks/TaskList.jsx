@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import TaskItem from "./TaskItem";
 import ProjectContext from "../../context/projects/projectContext";
 import TaskContext from "../../context/tasks/taskContext";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const TaskList = () => {
   const projectContext = useContext(ProjectContext);
@@ -21,7 +22,13 @@ const TaskList = () => {
       <h2>{project.name}</h2>
       <ul className="listado-tareas">
         {tasksProject?.length ? (
-          tasksProject.map((task) => <TaskItem key={task.id} task={task} />)
+          <TransitionGroup>
+            {tasksProject.map((task) => (
+              <CSSTransition key={task.id} timeout={300} classNames="tarea">
+                <TaskItem task={task} />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         ) : (
           <li>There are not tasks</li>
         )}
